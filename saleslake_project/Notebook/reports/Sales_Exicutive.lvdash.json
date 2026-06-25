@@ -1,0 +1,1195 @@
+{
+  "datasets": [
+    {
+      "name": "d5cde108",
+      "displayName": "Executive KPI Summary",
+      "queryLines": [
+        "SELECT * FROM saleslake_dev.gold_dev.vw_exec_kpi_summary"
+      ]
+    },
+    {
+      "name": "monthly_trends",
+      "displayName": "Monthly Sales Trends",
+      "queryLines": [
+        "SELECT * FROM saleslake_dev.gold_dev.vw_sales_monthly ORDER BY year, month"
+      ],
+      "catalog": "saleslake_dev",
+      "schema": "gold_dev"
+    },
+    {
+      "name": "479f8da1",
+      "displayName": "top 10 Products",
+      "queryLines": [
+        "SELECT product_name, category, net_revenue, profit, units_sold FROM saleslake_dev.gold_dev.vw_top10_products ORDER BY net_revenue DESC"
+      ]
+    },
+    {
+      "name": "a2f79345",
+      "displayName": "Category Performance",
+      "queryLines": [
+        "SELECT category, net_revenue, profit, margin_pct, units_sold FROM saleslake_dev.gold_dev.vw_category_performance ORDER BY net_revenue DESC"
+      ]
+    },
+    {
+      "name": "8307156e",
+      "displayName": "Regional Performance",
+      "queryLines": [
+        "SELECT region_name, country, net_revenue, profit, margin_pct,orders, unique_customers, active_stores FROM saleslake_dev.gold_dev.vw_regional_performance ORDER BY net_revenue DESC"
+      ]
+    },
+    {
+      "name": "443775dd",
+      "displayName": "Store Performance",
+      "queryLines": [
+        "SELECT store_name, store_type, city, state,net_revenue, profit, orders, revenue_per_sqft FROM saleslake_dev.gold_dev.vw_store_performance ORDER BY net_revenue DESC LIMIT 25"
+      ]
+    },
+    {
+      "name": "e9400451",
+      "displayName": "Customer Segment Performance",
+      "queryLines": [
+        "SELECT segment, customers, orders, net_revenue, profit,revenue_per_customer FROM saleslake_dev.gold_dev.vw_customer_segment_perf ORDER BY net_revenue DESC"
+      ]
+    },
+    {
+      "name": "2353ea48",
+      "displayName": "Discount Effectiveness",
+      "queryLines": [
+        "SELECT discount_code, discount_type, orders_with_discount,net_revenue, profit, margin_pct, discount_pct_of_gross FROM saleslake_dev.gold_dev.vw_discount_effectiveness ORDER BY net_revenue DESC"
+      ]
+    },
+    {
+      "name": "channel_perf",
+      "displayName": "Channel Performance",
+      "queryLines": [
+        "SELECT channel,orders,units,net_revenue,profit,margin_pct FROM saleslake_dev.gold_dev.vw_channel_perf ORDER BY net_revenue DESC"
+      ]
+    },
+    {
+      "name": "payment_method_perf",
+      "displayName": "Payment Method Mix",
+      "queryLines": [
+        "SELECT payment_method,orders,net_revenue,avg_order_value FROM saleslake_dev.gold_dev.vw_payment_method_perf ORDER BY net_revenue DESC"
+      ]
+    },
+    {
+      "name": "5de1ac80",
+      "displayName": "Invoice Status Summary",
+      "queryLines": [
+        "SELECT payment_status, invoice_count, total_billed, avg_days_to_pay FROM saleslake_dev.gold_dev.vw_invoice_status_summary"
+      ]
+    },
+    {
+      "name": "d57953c7",
+      "displayName": "YoY Growth",
+      "queryLines": [
+        "SELECT year, month_name, net_revenue_current, net_revenue_prior_year, yoy_growth_pct FROM saleslake_dev.gold_dev.vw_sales_yoy WHERE yoy_growth_pct IS NOT NULL ORDER BY year DESC, month DESC"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "618d19d2",
+      "displayName": "Executive Summary",
+      "layout": [
+        {
+          "widget": {
+            "name": "net_revenue_kpi",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "d5cde108",
+                  "fields": [
+                    {
+                      "name": "net_revenue",
+                      "expression": "`net_revenue`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Net Revenue",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "net_revenue",
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "compact",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  },
+                  "displayName": "Net Revenue"
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 3,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "total_profit_kpi",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "d5cde108",
+                  "fields": [
+                    {
+                      "name": "total_profit",
+                      "expression": "`total_profit`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Total Profit",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "total_profit",
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "compact",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  },
+                  "displayName": "Total Profit"
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 0,
+            "width": 3,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "16c4fb50",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "d5cde108",
+                  "fields": [
+                    {
+                      "name": "overall_margin_pct",
+                      "expression": "`overall_margin_pct`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Overall Margin %",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "overall_margin_pct",
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "none",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  },
+                  "formatTemplate": "{{ @formatted }}%",
+                  "displayName": "Overall Margin"
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 3,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "96ecebd7",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "d5cde108",
+                  "fields": [
+                    {
+                      "name": "avg_order_value",
+                      "expression": "`avg_order_value`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Average Order Value",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "avg_order_value",
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "compact",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  },
+                  "displayName": "Avg Order Value"
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 3,
+            "width": 3,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "c8fcd93f",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "d5cde108",
+                  "fields": [
+                    {
+                      "name": "unique_customers",
+                      "expression": "`unique_customers`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Unique Customers",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "unique_customers",
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "compact",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 0
+                    }
+                  },
+                  "displayName": "Unique Customers"
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 3,
+            "width": 3,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "2af0a721",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "d5cde108",
+                  "fields": [
+                    {
+                      "name": "total_orders",
+                      "expression": "`total_orders`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Total Orders",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "total_orders",
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "compact",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 0
+                    }
+                  },
+                  "displayName": "Total Orders"
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 3,
+            "width": 3,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "13d08c6d",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "monthly_trends",
+                  "fields": [
+                    {
+                      "name": "year_month",
+                      "expression": "`year_month`"
+                    },
+                    {
+                      "name": "net_revenue",
+                      "expression": "`net_revenue`"
+                    },
+                    {
+                      "name": "profit",
+                      "expression": "`profit`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "title": "Monthly Revenue & Profit Trend",
+                "showTitle": true
+              },
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "year_month",
+                  "displayName": "Month",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fields": [
+                    {
+                      "fieldName": "net_revenue",
+                      "displayName": "Revenue"
+                    },
+                    {
+                      "fieldName": "profit",
+                      "displayName": "Profit"
+                    }
+                  ],
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "legend": {
+                    "position": "top"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 9,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "30e0e36f",
+      "displayName": "Product & Category",
+      "layout": [
+        {
+          "widget": {
+            "name": "cfe403e4",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "479f8da1",
+                  "fields": [
+                    {
+                      "name": "net_revenue",
+                      "expression": "`net_revenue`"
+                    },
+                    {
+                      "name": "product_name",
+                      "expression": "`product_name`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "title": "Top 10 Products by Revenue",
+                "showTitle": true
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "net_revenue",
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "compact",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  },
+                  "displayName": "Net Revenue",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "product_name",
+                  "displayName": "Product",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "x"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "f42ed1f9",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "a2f79345",
+                  "fields": [
+                    {
+                      "name": "category",
+                      "expression": "`category`"
+                    },
+                    {
+                      "name": "net_revenue",
+                      "expression": "`net_revenue`"
+                    },
+                    {
+                      "name": "profit",
+                      "expression": "`profit`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Revenue & Profit by Category",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "category",
+                  "displayName": "Category",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fields": [
+                    {
+                      "fieldName": "net_revenue",
+                      "displayName": "Revenue"
+                    },
+                    {
+                      "fieldName": "profit",
+                      "displayName": "Profit"
+                    }
+                  ],
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "0a510bba",
+      "displayName": "Regional & Store",
+      "layout": [
+        {
+          "widget": {
+            "name": "959fd4e0",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "8307156e",
+                  "fields": [
+                    {
+                      "name": "region_name",
+                      "expression": "`region_name`"
+                    },
+                    {
+                      "name": "sum(net_revenue)",
+                      "expression": "SUM(`net_revenue`)"
+                    },
+                    {
+                      "name": "sum(profit)",
+                      "expression": "SUM(`profit`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Revenue & Profit by Region",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "region_name",
+                  "displayName": "Region",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "y"
+                    }
+                  }
+                },
+                "y": {
+                  "fields": [
+                    {
+                      "fieldName": "sum(net_revenue)",
+                      "displayName": "Revenue"
+                    },
+                    {
+                      "fieldName": "sum(profit)",
+                      "displayName": "Profit"
+                    }
+                  ],
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "legend": {
+                    "position": "top"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "1824fcec",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "443775dd",
+                  "fields": [
+                    {
+                      "name": "net_revenue",
+                      "expression": "`net_revenue`"
+                    },
+                    {
+                      "name": "store_name",
+                      "expression": "`store_name`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Top 25 Stores by Net Revenue",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "net_revenue",
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "compact",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  },
+                  "displayName": "Net Revenue",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "store_name",
+                  "displayName": "Store",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "x"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "4cd67209",
+      "displayName": "Customer Insights",
+      "layout": [
+        {
+          "widget": {
+            "name": "96de4011",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "e9400451",
+                  "fields": [
+                    {
+                      "name": "net_revenue",
+                      "expression": "`net_revenue`"
+                    },
+                    {
+                      "name": "segment",
+                      "expression": "`segment`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Revenue Share by Customer Segment",
+                "showTitle": true
+              },
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "net_revenue",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "compact",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  },
+                  "displayName": "Revenue"
+                },
+                "color": {
+                  "fieldName": "segment",
+                  "legend": {
+                    "position": "right"
+                  },
+                  "displayName": "Segment",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "angle"
+                    }
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "5cd078e5",
+      "displayName": "Discount & Channel",
+      "layout": [
+        {
+          "widget": {
+            "name": "195d4423",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "payment_method_perf",
+                  "fields": [
+                    {
+                      "name": "payment_method",
+                      "expression": "`payment_method`"
+                    },
+                    {
+                      "name": "net_revenue",
+                      "expression": "`net_revenue`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Payment Method Mix",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "payment_method",
+                  "displayName": "Payment Method",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "y"
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "net_revenue",
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "compact",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  },
+                  "displayName": "Revenue",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "47963837",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "channel_perf",
+                  "fields": [
+                    {
+                      "name": "net_revenue",
+                      "expression": "`net_revenue`"
+                    },
+                    {
+                      "name": "channel",
+                      "expression": "`channel`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Revenue by Channel",
+                "showTitle": true
+              },
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "net_revenue",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "compact",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  },
+                  "displayName": "Revenue"
+                },
+                "color": {
+                  "fieldName": "channel",
+                  "legend": {
+                    "position": "right"
+                  },
+                  "displayName": "Channel",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "angle"
+                    }
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "1b0ab333",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "2353ea48",
+                  "fields": [
+                    {
+                      "name": "profit",
+                      "expression": "`profit`"
+                    },
+                    {
+                      "name": "discount_code",
+                      "expression": "`discount_code`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Profit by Discount Code",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "profit",
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "compact",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  },
+                  "displayName": "Profit",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "discount_code",
+                  "displayName": "Discount Code",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "x"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "498843af",
+      "displayName": "Invoice",
+      "layout": [
+        {
+          "widget": {
+            "name": "0bcf9e3b",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "5de1ac80",
+                  "fields": [
+                    {
+                      "name": "payment_status",
+                      "expression": "`payment_status`"
+                    },
+                    {
+                      "name": "invoice_count",
+                      "expression": "`invoice_count`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Invoice Count by Payment Status",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "payment_status",
+                  "displayName": "Payment Status",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "y"
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "invoice_count",
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "compact",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 0
+                    }
+                  },
+                  "displayName": "Invoice Count",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "4d1d040b",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "d57953c7",
+                  "fields": [
+                    {
+                      "name": "month_name",
+                      "expression": "`month_name`"
+                    },
+                    {
+                      "name": "max(net_revenue_current)",
+                      "expression": "MAX(`net_revenue_current`)"
+                    },
+                    {
+                      "name": "max(net_revenue_prior_year)",
+                      "expression": "MAX(`net_revenue_prior_year`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Monthly Revenue Comparison (Current vs Prior Year)",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "month_name",
+                  "displayName": "Month",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fields": [
+                    {
+                      "fieldName": "max(net_revenue_current)",
+                      "displayName": "Current Year"
+                    },
+                    {
+                      "fieldName": "max(net_revenue_prior_year)",
+                      "displayName": "Prior Year"
+                    }
+                  ],
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "compact",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  }
+                },
+                "color": {
+                  "legend": {
+                    "position": "top"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
